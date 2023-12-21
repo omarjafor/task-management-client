@@ -1,10 +1,29 @@
 import { useState } from 'react';
 import logo from './../../../../public/logo.png';
+import { Link, NavLink } from 'react-router-dom';
 
 
 const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
 
+    const navLink = <>
+        <li><NavLink to='/about'
+            className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-xl font-bold underline outline-offset-8" : "font-bold lg:text-indigo-900 dark:text-teal-600 text-lg"}
+        >About</NavLink></li>
+        <li><NavLink to='/careers'
+            className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-xl font-bold underline outline-offset-8" : "font-bold lg:text-indigo-900 dark:text-teal-600 text-lg"}
+        >Careers</NavLink></li>
+        <li><NavLink to='/projects'
+            className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-xl font-bold underline outline-offset-8" : "font-bold lg:text-indigo-900 dark:text-teal-600 text-lg"}
+        >Projects</NavLink></li>
+        <li><NavLink to='/blog'
+            className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-xl font-bold underline outline-offset-8" : "font-bold lg:text-indigo-900 dark:text-teal-600 text-lg"}
+        >Blog</NavLink></li>
+    </>
     return (
         <header className="bgWhite py-6">
             <div className="mx-auto flex h-16 maxW-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -16,39 +35,33 @@ const Navbar = () => {
                 <div className="flex flex-1 items-center justify-end md:justify-between">
                     <nav className="hidden md:block">
                         <ul className="flex items-center gap-6 text-sm">
-                            <li>
-                                <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> About </a>
-                            </li>
-
-                            <li>
-                                <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Careers </a>
-                            </li>
-
-                            <li>
-                                <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Projects </a>
-                            </li>
-
-                            <li>
-                                <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Blog </a>
-                            </li>
+                            {navLink}
                         </ul>
                     </nav>
 
                     <div className="flex items-center gap-4">
                         <div className="sm:flex sm:gap-4">
-                            <a
-                                className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium textWhite transition hover:bg-teal-700"
-                                href="/"
+                            <Link
+                                className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm text-white font-medium textWhite transition hover:bg-teal-700"
+                                to='/login'
                             >
                                 Login
-                            </a>
+                            </Link>
 
-                            <a
-                                className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                                href="/"
+                            <Link
+                                className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
+                                to='/register'
                             >
                                 Register
-                            </a>
+                            </Link>
+
+                            <button
+                                
+                                className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
+                                to='/register'
+                            >
+                                Logout
+                            </button>
                         </div>
 
                         <div className="relative">
@@ -80,21 +93,7 @@ const Navbar = () => {
                                     >
                                         <div className="p-2">
                                             <ul className="space-y-3 text-sm">
-                                                <li>
-                                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> About </a>
-                                                </li>
-
-                                                <li>
-                                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Careers </a>
-                                                </li>
-
-                                                <li>
-                                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Projects </a>
-                                                </li>
-
-                                                <li>
-                                                    <a className="text-gray-500 transition hover:text-gray-500/75" href="/"> Blog </a>
-                                                </li>
+                                                {navLink}
                                             </ul>
                                         </div>
                                     </div>
