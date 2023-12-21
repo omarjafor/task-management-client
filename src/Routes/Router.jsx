@@ -1,9 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
+import Root from "../Root/Root";
+import Banner from "../Pages/Home/Banner/Banner";
 
 const Router = createBrowserRouter([
     {
         path: "/",
-        element: <div> <h1 className="text-3xl font-bold underline">Taskify Pro!</h1></div>,
+        element: <Root></Root>,
+        children: [
+            {
+                path: '',
+                element: <Banner></Banner>
+            }
+        ]
     },
 ]);
 
