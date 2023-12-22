@@ -1,10 +1,19 @@
 import { useState } from 'react';
 import logo from './../../../../public/logo.png';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { navigate('/') })
+            .catch(err => console.log(err))
+    }
 
     const navLink = <>
         <li><NavLink to='/about'
@@ -41,27 +50,33 @@ const Navbar = () => {
 
                     <div className="flex items-center gap-4">
                         <div className="sm:flex sm:gap-4">
-                            <Link
-                                className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm text-white font-medium textWhite transition hover:bg-teal-700"
-                                to='/login'
-                            >
-                                Login
-                            </Link>
+                            {
+                                user?.email ? 
+                                <>
+                                    <button
+                                        onClick={handleLogOut}
+                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
+                                        to='/register'
+                                    >
+                                        Logout
+                                    </button>
+                                </> : 
+                                <>
+                                        <Link
+                                            className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm text-white font-medium textWhite transition hover:bg-teal-700"
+                                            to='/login'
+                                        >
+                                            Login
+                                        </Link>
 
-                            <Link
-                                className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
-                                to='/register'
-                            >
-                                Register
-                            </Link>
-
-                            <button
-                                
-                                className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
-                                to='/register'
-                            >
-                                Logout
-                            </button>
+                                        <Link
+                                            className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
+                                            to='/register'
+                                        >
+                                            Register
+                                        </Link>
+                                </>
+                            }
                         </div>
 
                         <div className="relative">

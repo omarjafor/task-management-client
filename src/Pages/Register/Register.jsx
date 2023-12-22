@@ -66,9 +66,9 @@ const Register = () => {
                         //     .then(res => {
                         //         if (res.data.insertedId) {
                         //             console.log('user added to the database')
-                        //             toast.success('Your Registration Successful', { id: toastId })
-                        //             navigate(`/dashboard`);
-                        //             reset();
+                                    toast.success('Your Registration Successful', { id: toastId })
+                                    navigate(`/dashboard`);
+                                    reset();
                         //         }
                         //     })
                     }).catch(err => {
@@ -94,7 +94,7 @@ const Register = () => {
                         <img src={logo}
                             className="w-mx-auto" />
                     </div>
-                    <div className="flex flex-col items-center mt-2">
+                    <div className="flex flex-col items-center mt-24">
                         <div className="w-full flex-1">
                             <div className="flex flex-col items-center">
                                 <h2
