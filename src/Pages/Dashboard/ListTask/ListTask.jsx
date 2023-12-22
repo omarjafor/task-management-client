@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import useTasks from "../../../Hooks/useTasks";
 import TaskCard from "./TaskCard";
 import { useDrop } from "react-dnd";
+import toast from "react-hot-toast";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 
 const ListTask = () => {
-    const [myTasks, isLoading, refetch] = useTasks();
+    const [myTasks] = useTasks();
     const [todos, setTodos] = useState([]);
     const [onGoing, setonGoing] = useState([]);
     const [completed, setCompleted] = useState([]);
 
-    useEffect( () => {
+    useEffect(() => {
         const onlyTodos = myTasks?.filter(task => task.status === 'todo');
         const onlyOnGoing = myTasks?.filter(task => task.status === 'onGoing');
         const onlyCompleted = myTasks?.filter(task => task.status === 'completed');
@@ -18,19 +20,19 @@ const ListTask = () => {
         setTodos(onlyTodos);
         setonGoing(onlyOnGoing);
         setCompleted(onlyCompleted);
-    } , [myTasks])
+    }, [myTasks])
 
     const statuses = ['todo', 'onGoing', 'completed'];
 
     return (
         <div className="flex gap-14 justify-center">
             {
-                statuses.map((status, index) => ( <Section 
-                key={index} 
-                status={status}
-                todos={todos}
-                onGoing={onGoing}
-                completed={completed}
+                statuses.map((status, index) => (<Section
+                    key={index}
+                    status={status}
+                    todos={todos}
+                    onGoing={onGoing}
+                    completed={completed}
                 ></Section>))
             }
         </div>
@@ -40,6 +42,8 @@ const ListTask = () => {
 export default ListTask;
 
 const Section = ({ status, todos, onGoing, completed }) => {
+    const [, , refetch] = useTasks();
+    const axiosPublic = useAxiosPublic();
 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "task",
@@ -53,7 +57,7 @@ const Section = ({ status, todos, onGoing, completed }) => {
     let bg = 'bg-slate-500';
     let tasksToMap = todos
 
-    if(status === 'onGoing'){
+    if (status === 'onGoing') {
         text = 'On Going'
         bg = 'bg-purple-500'
         tasksToMap = onGoing
@@ -65,21 +69,29 @@ const Section = ({ status, todos, onGoing, completed }) => {
         tasksToMap = completed
     }
 
-    const addItemToSection = id => {
-        console.log('dropped', id, status);
-    }
-    return(
-        <div ref={drop} 
-        className={`w-64 rounded-md p-2 ${isOver ? 'bg-teal-200':''}`}>
-        <Header text={text} bg={bg} count={tasksToMap?.length} />
-        {
-            tasksToMap?.length > 0 && tasksToMap?.map(task => <TaskCard task={task} key={task._id} />)
+    const addItemToSection = async (id) => {
+        const toastId = toast.loading('Your Task is Updating....')
+        const updateData = { status }
+        const updateRes = await axiosPublic.patch(`/tasks/${id}`, updateData);
+        if (updateRes.data.modifiedCount > 0) {
+            refetch();
+            toast.success(`Task Updated`, { id: toastId });
+        } else {
+            toast.error(`Task Not Updated`, { id: toastId });
         }
+    }
+    return (
+        <div ref={drop}
+            className={`w-64 rounded-md p-2 ${isOver ? 'bg-teal-200' : ''}`}>
+            <Header text={text} bg={bg} count={tasksToMap?.length} />
+            {
+                tasksToMap?.length > 0 && tasksToMap?.map(task => <TaskCard task={task} key={task._id} />)
+            }
         </div>
     )
 }
 
-const Header = ({text, bg, count}) => {
+const Header = ({ text, bg, count }) => {
     return (
         <div className={`${bg} flex items-center h-12 pl-4 rounded-md uppercase text-sm text-white`}>
             {text}

@@ -17,7 +17,6 @@ const TaskCard = ({ task }) => {
             isDragging: !!monitor.isDragging()
         })
     }))
-    console.log(isDragging);
 
     const handleRemove = id => {
         const toastId = toast.loading('Your Task Deleting....')
