@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
+import useTasks from "../../../Hooks/useTasks";
 
 
 const CreateTask = () => {
     const { user } = useAuth();
+    const [, , refetch] = useTasks();
 
     const axiosPublic = useAxiosPublic();
     const [showModal, setShowModal] = useState(false);
@@ -22,13 +24,15 @@ const CreateTask = () => {
             deadline: data.deadline,
             priority: data.priority,
             description: data.description,
-            email: user?.email
+            email: user?.email,
+            status: 'todo'
         }
         console.log(taskData);
         const toastId = toast.loading('Your Task Creating....')
         setShowModal(false);
         const taskRes = await axiosPublic.post(`/tasks`, taskData);
         if (taskRes.data.insertedId) {
+            refetch();
             reset();
             toast.success(`${data.name} Task Created Successful`, { id: toastId });
         } else {

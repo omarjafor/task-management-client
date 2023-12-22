@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth";
 import CreateTask from "./CreateTask/CreateTask";
+import ListTask from "./ListTask/ListTask";
 
 const Dashboard = () => {
     const { user } = useAuth();
@@ -22,6 +23,7 @@ const Dashboard = () => {
                 </p>
             </div>
             <CreateTask></CreateTask>
+            <ListTask></ListTask>
         </div>
     );
 };
