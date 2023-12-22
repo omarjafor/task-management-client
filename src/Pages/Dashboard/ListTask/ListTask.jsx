@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useTasks from "../../../Hooks/useTasks";
 import TaskCard from "./TaskCard";
+import { useDrop } from "react-dnd";
 
 
 const ListTask = () => {
@@ -40,6 +41,14 @@ export default ListTask;
 
 const Section = ({ status, todos, onGoing, completed }) => {
 
+    const [{ isOver }, drop] = useDrop(() => ({
+        accept: "task",
+        drop: (item) => addItemToSection(item.id),
+        collect: (monitor) => ({
+            isDragging: !!monitor.isOver()
+        })
+    }))
+
     let text = 'Todo';
     let bg = 'bg-slate-500';
     let tasksToMap = todos
@@ -56,11 +65,15 @@ const Section = ({ status, todos, onGoing, completed }) => {
         tasksToMap = completed
     }
 
+    const addItemToSection = id => {
+        console.log('dropped', id, status);
+    }
     return(
-        <div className={`w-64`}>
+        <div ref={drop} 
+        className={`w-64 rounded-md p-2 ${isOver ? 'bg-teal-200':''}`}>
         <Header text={text} bg={bg} count={tasksToMap?.length} />
         {
-            tasksToMap.length > 0 && tasksToMap.map(task => <TaskCard task={task} key={task._id} />)
+            tasksToMap?.length > 0 && tasksToMap?.map(task => <TaskCard task={task} key={task._id} />)
         }
         </div>
     )

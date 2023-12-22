@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useTasks from "../../../Hooks/useTasks";
+import { useDrag } from "react-dnd";
 
 
 const TaskCard = ({ task }) => {
@@ -8,6 +9,15 @@ const TaskCard = ({ task }) => {
     const [, , refetch] = useTasks();
 
     const { _id, name, deadline, priority, description, status } = task || {};
+
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "task",
+        item: {id: _id},
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    }))
+    console.log(isDragging);
 
     const handleRemove = id => {
         const toastId = toast.loading('Your Task Deleting....')
@@ -21,7 +31,7 @@ const TaskCard = ({ task }) => {
     }
 
     return (
-        <div>
+        <div ref={drag} className={isDragging ? 'opacity-20' : 'opacity-100'}>
             <div className="my-5 p-2 border border-teal-400 rounded-lg shadow-lg">
                 <dd className="font-bold"> {name} - {priority}</dd>
                 <div className="flex justify-between">
