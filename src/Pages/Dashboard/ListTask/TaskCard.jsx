@@ -2,11 +2,13 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useTasks from "../../../Hooks/useTasks";
 import { useDrag } from "react-dnd";
-
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 const TaskCard = ({ task }) => {
     const axiosPublic = useAxiosPublic();
     const [, , refetch] = useTasks();
+    const [showModal, setShowModal] = useState(false);
 
     const { _id, name, deadline, priority, description, status } = task || {};
 
@@ -17,6 +19,32 @@ const TaskCard = ({ task }) => {
             isDragging: !!monitor.isDragging()
         })
     }))
+
+    const { register, handleSubmit, reset } = useForm()
+
+    const handleUpdate = () => {
+        setShowModal(true);
+    }
+
+    const onSubmit = async (data) => {
+        const updateData = {
+            name: data.name,
+            deadline: data.deadline,
+            priority: data.priority,
+            description: data.description,
+        }
+        console.log(updateData);
+        const toastId = toast.loading('Your Profile Updating....')
+        setShowModal(false);
+        const updateRes = await axiosPublic.put(`/tasks/${_id}`, updateData);
+        if (updateRes.data.modifiedCount > 0) {
+            refetch();
+            reset();
+            toast.success(`${data.name} is Updated`, { id: toastId });
+        } else {
+            toast.error(`${data.name} is Not Updated`, { id: toastId });
+        }
+    };
 
     const handleRemove = id => {
         const toastId = toast.loading('Your Task Deleting....')
@@ -54,7 +82,8 @@ const TaskCard = ({ task }) => {
                                 d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"
                             />
                         </svg>
-                        <button className="p-2 border rounded-md shadow-md">
+                        <button onClick={handleUpdate}
+                        className="p-2 border rounded-md shadow-md">
                             Update
                         </button>
                     </div>
