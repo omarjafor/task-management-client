@@ -38,7 +38,7 @@ const Navbar = () => {
             <div className="mx-auto flex h-16 maxW-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
                 <a className="block text-teal-600" href="/">
                     <span className="sr-only">Home</span>
-                    <img src={logo} alt="" className='h-10'/>
+                    <img src={logo} alt="" className='h-10' />
                 </a>
 
                 <div className="flex flex-1 items-center justify-end md:justify-between">
@@ -51,17 +51,23 @@ const Navbar = () => {
                     <div className="flex items-center gap-4">
                         <div className="sm:flex sm:gap-4">
                             {
-                                user?.email ? 
-                                <>
-                                    <button
-                                        onClick={handleLogOut}
-                                        className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
-                                        to='/register'
-                                    >
-                                        Logout
-                                    </button>
-                                </> : 
-                                <>
+                                user?.email ?
+                                    <>
+                                        <Link
+                                            className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm text-white font-medium textWhite transition hover:bg-teal-700"
+                                            to='/dashboard'
+                                        >
+                                            Dashboard
+                                        </Link>
+                                        <button
+                                            onClick={handleLogOut}
+                                            className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
+                                            to='/register'
+                                        >
+                                            Logout
+                                        </button>
+                                    </> :
+                                    <>
                                         <Link
                                             className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm text-white font-medium textWhite transition hover:bg-teal-700"
                                             to='/login'
@@ -75,17 +81,17 @@ const Navbar = () => {
                                         >
                                             Register
                                         </Link>
-                                </>
+                                    </>
                             }
                         </div>
 
                         <div className="relative">
                             <div className="inline-flex items-center overflow-hidden rounded-md border bg-white">
                                 <button
-                                onClick={() => setShowMenu(!showMenu)}
+                                    onClick={() => setShowMenu(!showMenu)}
                                     className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
                                 >
-                                   
+
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="h-5 w-5"
@@ -115,7 +121,7 @@ const Navbar = () => {
                                 </>
                             }
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
