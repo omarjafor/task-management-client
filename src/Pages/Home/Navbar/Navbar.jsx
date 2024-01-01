@@ -1,7 +1,4 @@
-import { useState } from 'react';
-import logo from './../../../../public/logo.png';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import useAuth from '../../../Hooks/useAuth';
+
 
 
 const Navbar = () => {
