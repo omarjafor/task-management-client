@@ -55,7 +55,7 @@ const CreateTask = () => {
                         <div className="relative my-6 mx-auto">
                             {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                                <h3 className="text-xl py-2 font-bold bg-teal-500">
+                                <h3 className="text-xl py-2 font-bold bg-blue-400">
                                     Create Your Task
                                 </h3>
                                 <form onSubmit={handleSubmit(onSubmit)} className="mx-12">
@@ -100,7 +100,7 @@ const CreateTask = () => {
                                     </div>
                                     <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                                         <button
-                                            className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            className="bg-blue-600 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
                                         >
                                             Create Task
