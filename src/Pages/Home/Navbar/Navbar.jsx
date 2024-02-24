@@ -49,7 +49,7 @@ const Navbar = () => {
                     </nav>
 
                     <div className="flex items-center gap-4">
-                        <div className="sm:flex sm:gap-4">
+                        <div className="hidden md:flex sm:gap-4">
                             {
                                 user?.email ?
                                     <>
@@ -112,10 +112,43 @@ const Navbar = () => {
                                         className="absolute end-0 z-10 mt-2 w-40 rounded-md border border-gray-100 bg-white shadow-lg "
                                         role="menu"
                                     >
-                                        <div className="p-2">
+                                        <div className="p-2 space-y-3">
                                             <ul className="space-y-3 text-sm">
                                                 {navLink}
                                             </ul>
+                                            {
+                                                user?.email ?
+                                                    <>
+                                                        <Link
+                                                            className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm text-white font-medium textWhite transition hover:bg-teal-700"
+                                                            to='/dashboard'
+                                                        >
+                                                            Dashboard
+                                                        </Link>
+                                                        <button
+                                                            onClick={handleLogOut}
+                                                            className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
+                                                            to='/register'
+                                                        >
+                                                            Logout
+                                                        </button>
+                                                    </> :
+                                                    <>
+                                                        <Link
+                                                            className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm text-white font-medium textWhite transition hover:bg-teal-700"
+                                                            to='/login'
+                                                        >
+                                                            Login
+                                                        </Link>
+
+                                                        <Link
+                                                            className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-900 transition hover:text-teal-600/75 sm:block"
+                                                            to='/register'
+                                                        >
+                                                            Register
+                                                        </Link>
+                                                    </>
+                                            }
                                         </div>
                                     </div>
                                 </>

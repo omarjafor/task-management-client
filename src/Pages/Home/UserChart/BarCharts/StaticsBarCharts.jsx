@@ -24,7 +24,7 @@ const StaticsBarCharts = () => {
     return (
         <div>
             <BarChart
-                width={500}
+                width={400}
                 height={300}
                 data={data}
                 margin={{

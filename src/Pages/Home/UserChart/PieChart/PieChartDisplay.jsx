@@ -41,7 +41,7 @@ const PieChartDisplay = () => {
                 x={x}
                 y={y}
                 fill="white"
-                fontSize="36"
+                fontSize="24"
                 fontWeight='bold'
                 textAnchor={x > cx ? "start" : "end"}
                 dominantBaseline="central"
@@ -54,14 +54,14 @@ const PieChartDisplay = () => {
     return (
         <div>
             <div className="flex justify-center mb-5 mx-auto items-center">
-                <PieChart width={500} height={500} className="mx-auto">
+                <PieChart width={400} height={400} className="ml-12 w-1/2 md:w-full">
                     <Pie
                         data={data}
                         cx={200}
                         cy={200}
                         labelLine={false}
                         label={renderCustomizedLabel}
-                        outerRadius={200}
+                        outerRadius={150}
                         fill="#8884d8"
                         dataKey="value"
                     >
