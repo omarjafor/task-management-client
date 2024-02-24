@@ -4,6 +4,7 @@ import TaskCard from "./TaskCard";
 import { useDrop } from "react-dnd";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useSelector } from "react-redux";
 
 
 const ListTask = () => {
@@ -11,21 +12,22 @@ const ListTask = () => {
     const [todos, setTodos] = useState([]);
     const [onGoing, setonGoing] = useState([]);
     const [completed, setCompleted] = useState([]);
+    const search = useSelector(state => state.search.search);
 
     useEffect(() => {
-        const onlyTodos = myTasks?.filter(task => task.status === 'todo');
-        const onlyOnGoing = myTasks?.filter(task => task.status === 'onGoing');
-        const onlyCompleted = myTasks?.filter(task => task.status === 'completed');
+        const onlyTodos = myTasks?.filter(task => task.status === 'todo' && task.name.toLowerCase().includes(search.toLowerCase()));
+        const onlyOnGoing = myTasks?.filter(task => task.status === 'onGoing' && task.name.toLowerCase().includes(search.toLowerCase()));
+        const onlyCompleted = myTasks?.filter(task => task.status === 'completed' && task.name.toLowerCase().includes(search.toLowerCase()));
 
         setTodos(onlyTodos);
         setonGoing(onlyOnGoing);
         setCompleted(onlyCompleted);
-    }, [myTasks])
+    }, [myTasks, search])
 
     const statuses = ['todo', 'onGoing', 'completed'];
 
     return (
-        <div className="flex gap-14 justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 mx-auto justify-items-center">
             {
                 statuses.map((status, index) => (<Section
                     key={index}

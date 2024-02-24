@@ -68,7 +68,7 @@ const TaskCard = ({ task }) => {
                     </div>
                     <dd className="font-sm text-sm"> {description}</dd>
                     <div className="mt-6 flex justify-evenly items-center gap-8 text-xs">
-                        <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
+                        <div className="inline-flex shrink-0 items-center gap-2">
                             <svg
                                 className="h-4 w-4 text-indigo-700"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ const TaskCard = ({ task }) => {
                             </button>
                         </div>
 
-                        <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
+                        <div className="inline-flex shrink-0 items-center gap-2">
                             <svg
                                 className="h-4 w-4 text-indigo-700"
                                 xmlns="http://www.w3.org/2000/svg"

@@ -4,11 +4,14 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
 import useTasks from "../../../Hooks/useTasks";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../../../redux/SearchSlice";
 
 
 const CreateTask = () => {
     const { user } = useAuth();
     const [, , refetch] = useTasks();
+    const dispatch = useDispatch();
 
     const axiosPublic = useAxiosPublic();
     const [showModal, setShowModal] = useState(false);
@@ -42,7 +45,10 @@ const CreateTask = () => {
 
     return (
         <div>
-            <div className="my-4">
+            <div className="my-4 space-y-2 mx-auto">
+                <div>
+                    <input type="search" name="search" id="" placeholder="Search here" autoComplete="off" onChange={(e) => dispatch(setSearch(e.target.value))} className='p-3 border border-gray-400 text-sm rounded-lg outline-none w-2/3 lg:w-[25vw]' />
+                </div>
                 <button onClick={handleTask} className="p-3 font-bold text-white rounded-lg bg-blue-600 mb-2 mx-auto">
                     Create Task
                 </button>
