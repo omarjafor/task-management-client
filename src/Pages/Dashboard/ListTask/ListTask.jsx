@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useSelector } from "react-redux";
 
-
 const ListTask = () => {
     const [myTasks] = useTasks();
     const [todos, setTodos] = useState([]);
